@@ -1,5 +1,5 @@
-const initializeApp = require('firebase-admin/app');
-const getAppCheck = require('firebase-admin/app-check');
+const { initializeApp } = require('firebase-admin/app');
+const { getAppCheck } = require('firebase-admin/app-check');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -63,7 +63,7 @@ app.post('/verify-captcha', (req, res) => {
   });
 });
 
-expressApp.get('/backend-endpoint', [appCheckVerification], (req, res) => {
+app.post('/backend-endpoint', [appCheckVerification], (req, res) => {
   console.log(`Success, /backend-endpoint: message: 'Hello from the backend!'`);
 
   return res.status(200).send({
