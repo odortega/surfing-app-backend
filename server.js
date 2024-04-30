@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase-admin/app';
-import { getAppCheck } from 'firebase-admin/app-check';
+const initializeApp = require('firebase-admin/app');
+const getAppCheck = require('firebase-admin/app-check');
 
 const express = require('express');
 const bodyParser = require('body-parser');
