@@ -1,7 +1,41 @@
+import { initializeApp } from 'firebase-admin/app';
+import { getAppCheck } from 'firebase-admin/app-check';
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
+const firebaseApp = initializeApp();
+
+// Firebase App Check verification middleware
+const appCheckVerification = async (req, res, next) => {
+  //const appCheckToken = req.header('X-Firebase-AppCheck');
+  const { appCheckToken } = req.body;
+
+  if (!appCheckToken) {
+    res.status(401);
+    console.log('Error, appCheckVerification: !!appCheckToken');
+    return next('Unauthorized');
+  }
+
+  try {
+    const appCheckClaims = await getAppCheck().verifyToken(appCheckToken);
+
+    console.log(
+      `Success, getAppCheck().verifyToken, appCheckClaims: ${JSON.stringify(
+        appCheckClaims
+      )}`
+    );
+
+    // If verifyToken() succeeds, continue with the next middleware
+    // function in the stack.
+    return next();
+  } catch (err) {
+    console.log(`Error, getAppCheck().verifyToken: ${err}`);
+    res.status(401);
+    return next('Unauthorized');
+  }
+};
 
 app.use(bodyParser.json());
 
@@ -29,6 +63,14 @@ app.post('/verify-captcha', (req, res) => {
   });
 });
 
+expressApp.get('/backend-endpoint', [appCheckVerification], (req, res) => {
+  console.log(`Success, /backend-endpoint: message: 'Hello from the backend!'`);
+
+  return res.status(200).send({
+    message: 'Hello from the backend!',
+  });
+});
+
 app.listen(10000, () => {
-  console.log('Server running on http://localhost:10000');
+  console.log('Server running on https://surfing-app-backend.onrender.com');
 });
