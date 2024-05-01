@@ -5,11 +5,16 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const firebaseApp = firebase_admin.initializeApp({
-  credential: firebase_admin.credential.cert(
-    process.env.GOOGLE_APPLICATION_CREDENTIALS
-  ),
-});
+
+const adminCredentials = {
+  credential: firebase_admin.credential.cert({
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    privateKey: JSON.parse(process.env.FIREBASE_PRIVATE_KEY),
+  }),
+};
+
+const firebaseApp = firebase_admin.initializeApp(adminCredentials);
 
 let appCheckClaims = {};
 
