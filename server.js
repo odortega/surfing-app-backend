@@ -9,8 +9,8 @@ const firebaseApp = initializeApp();
 
 // Firebase App Check verification middleware
 const appCheckVerification = async (req, res, next) => {
-  //const appCheckToken = req.header('X-Firebase-AppCheck');
-  const { appCheckToken } = req.body;
+  const appCheckToken = req.header('X-Firebase-AppCheck');
+  //const { appCheckToken } = req.body;
 
   if (!appCheckToken) {
     res.status(401);
@@ -67,7 +67,7 @@ app.post('/backend-endpoint', [appCheckVerification], (req, res) => {
   console.log(`Success, /backend-endpoint: message: 'Hello from the backend!'`);
 
   return res.status(200).send({
-    message: 'Hello from the backend!',
+    message: 'Hello from your backend protected by Firebase App Check!',
   });
 });
 
