@@ -5,7 +5,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const firebaseApp = initializeApp();
+const firebaseApp = initializeApp({
+  credential: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+});
+let appCheckClaims = {};
 
 // Firebase App Check verification middleware
 const appCheckVerification = async (req, res, next) => {
@@ -19,7 +22,7 @@ const appCheckVerification = async (req, res, next) => {
   }
 
   try {
-    const appCheckClaims = await getAppCheck().verifyToken(appCheckToken);
+    appCheckClaims = await getAppCheck().verifyToken(appCheckToken);
 
     console.log(
       `Success, getAppCheck().verifyToken, appCheckClaims: ${JSON.stringify(
@@ -68,6 +71,7 @@ app.post('/backend-endpoint', [appCheckVerification], (req, res) => {
 
   return res.status(200).send({
     message: 'Hello from your backend protected by Firebase App Check!',
+    data: appCheckClaims,
   });
 });
 
