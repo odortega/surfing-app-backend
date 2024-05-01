@@ -10,7 +10,7 @@ const adminCredentials = {
   credential: firebase_admin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: JSON.parse(process.env.FIREBASE_PRIVATE_KEY),
+    privateKey: process.env.FIREBASE_PRIVATE_KEY,
   }),
 };
 
