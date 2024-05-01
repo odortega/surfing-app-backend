@@ -1,15 +1,16 @@
-const { initializeApp } = require('firebase-admin/app');
+const firebase_admin = require('firebase-admin');
 const { getAppCheck } = require('firebase-admin/app-check');
 
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-const firebaseApp = initializeApp({
-  credential: firebaseApp.credential.cert(
+const firebaseApp = firebase_admin.initializeApp({
+  credential: firebase_admin.credential.cert(
     process.env.GOOGLE_APPLICATION_CREDENTIALS
   ),
 });
+
 let appCheckClaims = {};
 
 // Firebase App Check verification middleware
