@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const firebaseApp = initializeApp({
-  credential: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  credential: firebaseApp.credential.cert(serviceAccount); process.env.GOOGLE_APPLICATION_CREDENTIALS,
 });
 let appCheckClaims = {};
 
