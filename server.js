@@ -34,8 +34,8 @@ let appCheckClaims = {};
 
 // Firebase App Check verification middleware
 const appCheckVerification = async (req, res, next) => {
-  console.log(`req: ${stringify(req)}`);
-
+  console.log(`headers: ${stringify(req.headers)}`);
+  console.log(`body: ${stringify(req.body)}`);
   const appCheckToken = req.header('X-Firebase-AppCheck');
   //const { appCheckToken } = req.body;
 
