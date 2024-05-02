@@ -56,7 +56,9 @@ const appCheckVerification = async (req, res, next) => {
   }
 
   try {
-    appCheckClaims = await getAppCheck().verifyToken(appCheckToken);
+    appCheckClaims = await getAppCheck().verifyToken(appCheckToken, {
+      consume: true,
+    });
 
     console.log(
       `Success, getAppCheck().verifyToken, appCheckClaims: ${JSON.stringify(
