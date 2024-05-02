@@ -7,11 +7,14 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(
-  cors({
-    origin: '*',
-  })
-);
+const corsOptions = {
+  origin: '*',
+  allowedHeaders: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //preflightContinue: false,
+  //optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
 
 // firebase_admin.initializeApp({
 //   credential: firebase_admin.credential.cert({
