@@ -1,8 +1,8 @@
 const firebase_admin = require('firebase-admin');
 const { getAppCheck } = require('firebase-admin/app-check');
-
 const express = require('express');
 const bodyParser = require('body-parser');
+const stringify = require('json-stringify-safe');
 
 const app = express();
 
@@ -34,7 +34,7 @@ let appCheckClaims = {};
 
 // Firebase App Check verification middleware
 const appCheckVerification = async (req, res, next) => {
-  console.log(`req: ${JSON.stringify(req)}`);
+  console.log(`req: ${stringify(req)}`);
 
   const appCheckToken = req.header('X-Firebase-AppCheck');
   //const { appCheckToken } = req.body;
