@@ -3,8 +3,15 @@ const { getAppCheck } = require('firebase-admin/app-check');
 const express = require('express');
 const bodyParser = require('body-parser');
 const stringify = require('json-stringify-safe');
+const cors = require('cors');
 
 const app = express();
+
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 
 // firebase_admin.initializeApp({
 //   credential: firebase_admin.credential.cert({
