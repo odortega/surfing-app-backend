@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const privateKey = JSON.parse(
-  `{"privateKey":"${process.env.FIREBASE_PRIVATE_KEY}"}`
+  `{"private_key":"${process.env.FIREBASE_PRIVATE_KEY}"}`
 );
 
 const adminCredentials = {
